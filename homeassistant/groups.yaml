@@ -1,0 +1,53 @@
+  # TODO rename to default_view when all done with this (overwrites default)
+########################################
+# Tabs
+########################################
+
+  home:
+    view: yes
+    icon: mdi:home
+    entities:
+      - camera.generic_camera
+      - camera.generic_camera_2
+      - sun.sun
+      - group.temperature
+      - group.darksky
+
+  media:
+    view: yes
+    icon: mdi:headphones
+    entities:
+      - media_player.lounge_tv
+      - media_player.sunroom_chromecast
+      - media_player.mpd
+      - group.speedtest
+      - group.internet_radio
+
+########################################
+# Groups
+########################################
+
+  temperature:
+    entities:
+      - camera.generic_camera
+      - sensor.dht_sensor_temperature
+      - sensor.dht_sensor_humidity
+
+  speedtest:
+    entities:
+      - sensor.speedtest_ping
+      - sensor.speedtest_upload
+      - sensor.speedtest_download
+
+  internet_radio:
+    name: Internet Radio
+    entities:
+      - input_select.radio_station
+      - script.internet_radio
+
+  darksky:
+    name: Weather
+    entities:
+      - sensor.dark_sky_temperature
+      - sensor.dark_sky_wind_speed
+      - sensor.dark_sky_summary

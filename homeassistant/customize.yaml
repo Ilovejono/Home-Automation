@@ -1,0 +1,2 @@
+sensor.dht_sensor_temperature:
+  friendly_name: Bedroom Temperature

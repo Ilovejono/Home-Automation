@@ -1,0 +1,18 @@
+  internet_radio:
+    alias: Internet Radio
+    sequence:
+      - service: media_player.play_media
+        data_template:
+          entity_id: media_player.mpd
+          media_content_id: >
+            {% if is_state("input_select.radio_station", "Nova 969") %} http://16973.live.streamtheworld.com/NOVA_969_AAC48.aac
+            {% elif is_state("input_select.radio_station", "2Day FM") %} http://legacy.scahw.com.au/2day_32
+            {% elif is_state("input_select.radio_station", "tripple j Unearthed") %} http://live-radio02.mediahubaustralia.com/UNEW/aac/;
+            {% elif is_state("input_select.radio_station", "Tripple M") %} http://sc02.scahw.com.au/greatesthits_128
+            {% elif is_state("input_select.radio_station", "Vintage FM") %} http://206.190.136.212:9341/Live?sid=1
+            {% elif is_state("input_select.radio_station", "2GB 873") %} http://shoutcast.2gb.com/2gb;/;702213120438115stream.nsv
+            {% elif is_state("input_select.radio_station", "AnimeNFO") %} http://itori.animenfo.com:443/;
+            {% elif is_state("input_select.radio_station", "LoFi Hip Hop") %} http://hyades.shoutca.st:8043/stream        
+            {% elif is_state("input_select.radio_station", "RNZ") %} https://stream-ice.radionz.co.nz/national.mp3
+            {% endif %}
+          media_content_type: 'audio/mp4'

@@ -1,0 +1,180 @@
+homeassistant:
+  # Name of the location where Home Assistant is running
+  name: Home
+  # Location required to calculate the time the sun rises and sets
+  latitude: -41.1083
+  longitude: 175.3202
+  # Impacts weather/sunrise data (altitude above sea level in meters)
+  elevation: 120
+  # metric for Metric, imperial for Imperial
+  unit_system: metric
+  # Pick yours from here: http://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  time_zone: Pacific/Auckland
+  # Customization file
+  customize: !include customize.yaml
+
+# Enables the frontend
+frontend:
+
+# Enables configuration UI
+config:
+
+http:
+  # Secrets are defined in the file secrets.yaml
+  # api_password: !secret http_password
+  # Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+  # base_url: example.duckdns.org:8123
+
+# Checks for available updates
+# Note: This component will send some information about your system to
+# the developers to assist with development of Home Assistant.
+# For more information, please see:
+# https://home-assistant.io/blog/2016/10/25/explaining-the-updater/
+updater:
+  # Optional, allows Home Assistant developers to focus on popular components.
+  # include_used_components: true
+
+# Discover some devices automatically
+discovery:
+
+# Allows you to issue voice commands from the frontend in enabled browsers
+conversation:
+
+# Enables support for tracking state changes over time
+history:
+
+# View all events in a logbook
+logbook:
+
+# Enables a map showing the location of tracked devices
+map:
+
+# Track the sun
+sun:
+
+# MQTT
+mqtt:
+  
+
+# Text to speech
+tts:
+  - platform: google
+
+
+
+########################################
+### SENSORS
+########################################
+
+# Pi Temperature Sensor
+sensor:
+  - platform: dht
+    sensor: DHT22
+    pin: 4
+    monitored_conditions:
+    - temperature
+    - humidity
+
+# Speedtest
+  - platform: speedtest
+    monitored_conditions:
+      - ping
+      - download
+      - upload
+
+# Clock
+  - platform: time_date
+    display_options: 
+      - 'time'
+
+# dark sky (weather)
+  - platform: darksky
+    api_key: cacd09398c359cd45ec58ff849519ff2
+    monitored_conditions:
+      - summary
+      - temperature
+      - wind_speed
+
+# Weather prediction
+  - platform: yr
+
+# light levels
+  - platform: mqtt
+    state_topic: bedroom/lightsensor
+
+# Rubbish
+  # - platform: template
+  #   sensors:
+  #     recycling:
+  #       value_template: >-
+  #       {% if (datetime.date(2010, 6, 16).strftime("%V") % 2 == 0) %}
+  #       recycling
+  #       {% else %}
+  #       bottles
+  #       {% endif %}
+
+ 
+
+########################################
+### CAMERAS
+########################################
+camera:
+  # Lower Hutt Motorway
+  - platform: generic
+    still_image_url: http://www.trafficnz.info/camera/278.jpg
+
+  # - platform: generic
+  #   still_image_url: http://www.trafficnz.info/camera/230.jpg
+
+
+
+
+
+
+
+########################################
+### Media
+########################################
+media_player:
+  platform: mpd
+  host: localhost
+
+# Radio Station Select
+input_select:
+  radio_station:
+    name: 'Select Radio Station:'
+    options:
+      - Nova 969
+      - 2Day FM
+      - tripple j Unearthed
+      - Tripple M
+      - Vintage FM
+      - 2GB 873
+      - AnimeNFO
+      - LoFi Hip Hop
+      - RNZ
+
+########################################
+### Weblinks/Panels
+########################################
+panel_iframe:
+  weblinks:
+    title: 'Web Links'
+    icon: 'mdi:server'
+    url: 'http://192.168.1.3'
+
+
+########################################
+### Switches
+########################################
+switch:
+  - platform: mqtt
+    command_topic: "bedroom/buzzer"
+
+
+
+
+# includes
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
