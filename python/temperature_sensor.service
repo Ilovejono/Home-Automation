@@ -1,0 +1,9 @@
+[Unit]
+Description=DS18B20 Thermometer Script to publish to MQTT server
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /home/pi/TemperatureSensor/temperature_sensor.py
+
+[Install]
+WantedBy=multi-user.target
